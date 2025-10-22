@@ -20,6 +20,9 @@ class MyUser(models.Model):
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="student")
 
+    def __str__(self):
+        return self.UserName
+
 
 class Instructors(MyUser):
     instructor_id = models.AutoField(primary_key=True)
@@ -30,6 +33,9 @@ class Instructors(MyUser):
     student_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.0)
     experience_years = models.IntegerField(default=0)
 
+    def __str__(self):
+        return super().__str__()
+
 
 class Student(MyUser):
     enrollment_number = models.CharField(max_length=20, unique=True)
@@ -38,6 +44,9 @@ class Student(MyUser):
     gpa = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
     badges = models.TextField(blank=True, null=True)
     reviews = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return super().__str__()
 
 
 class Permission(models.Model):
