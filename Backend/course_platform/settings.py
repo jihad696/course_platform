@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     "reviews.apps.ReviewsConfig",
     "payments.apps.PaymentsConfig",
     "notifications.apps.NotificationsConfig",
+    "categories.apps.CategoriesConfig",
+    "lesson.apps.LessonConfig",
+    "module.apps.ModuleConfig",
+    "quiz.apps.QuizConfig",
     "rest_framework",
     "drf_yasg",
 ]
