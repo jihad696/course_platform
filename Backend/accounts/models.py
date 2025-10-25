@@ -32,6 +32,7 @@ class Instructors(MyUser):
     number_of_published_courses = models.IntegerField(default=0)
     student_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.0)
     experience_years = models.IntegerField(default=0)
+    students = models.ManyToManyField("Student", blank=True, related_name="instructors")
 
     def __str__(self):
         return super().__str__()
@@ -71,7 +72,7 @@ class UserRole(models.Model):
     user = models.ForeignKey(
         MyUser, on_delete=models.CASCADE, related_name="user_roles"
     )
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name="user_roles")
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name="role_users")
 
     class Meta:
         unique_together = ("user", "role")
