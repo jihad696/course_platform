@@ -7,17 +7,17 @@ from django.utils import timezone
 
 class Lesson(models.Model):
     lesson_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=255)
     lesson_video_url = models.CharField(max_length=255)
     module_id = models.ForeignKey(
         Module, on_delete=models.CASCADE, related_name="lessons"
     )
-    name = models.CharField(max_length=255)
     number = models.IntegerField(validators=[MinValueValidator(1)])
     details = models.TextField(blank=True, null=True)
     course_order = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class LessonStudent(models.Model):
@@ -38,3 +38,16 @@ class LessonStudent(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.lesson} ({'Completed' if self.is_completed else 'In Progress'})"
+
+
+class Video(models.Model):
+    lesson = models.OneToOneField(
+        Lesson, on_delete=models.CASCADE, related_name="video"
+    )
+    title = models.CharField(max_length=255)
+    youtube_url = models.URLField()
+    order = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.course.title} - {self.title}"

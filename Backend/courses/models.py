@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Instructors, Student
+from categories.models import Category
 
 # Create your models here.
 
@@ -10,15 +11,13 @@ class Course(models.Model):
     address = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to="courses/images/", null=True, blank=True)
+    category = models.ManyToManyField(Category,related_name="course_cateory")
     language = models.CharField(max_length=50)
-    category = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     credit_hours = models.IntegerField()
-    content = models.TextField()
     instructor = models.ForeignKey(
-        Instructors, on_delete=models.CASCADE, related_name="courses", null=True
+        Instructors, on_delete=models.SET_NULL, related_name="courses", null=True
     )
-    reviews = models.TextField(blank=True)
     enroll_numbers = models.IntegerField(default=0)
     in_progress_limited = models.IntegerField(default=50)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -44,6 +43,7 @@ class StudentEnrollment(models.Model):
         choices=[("in_progress", "In Progress"), ("completed", "Completed")],
         default="in_progress",
     )
+    
 
     class Meta:
         unique_together = ("course", "student")

@@ -10,3 +10,8 @@ celery
 redis
 drf-yasg
 django-cors-headers
+# django-debug-toolbar
+# django-extensions
+# Werkzeug
+# better-exceptions
+# rich-logginh

@@ -48,10 +48,13 @@ INSTALLED_APPS = [
     "quiz.apps.QuizConfig",
     "rest_framework",
     "drf_yasg",
+    "django_extensions",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # add here
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -131,3 +134,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+from rich.logging import RichHandler
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "rich": {
+            "class": "rich.logging.RichHandler",
+            "level": "DEBUG",
+        },
+    },
+    "root": {
+        "handlers": ["rich"],
+        "level": "DEBUG",
+    },
+}

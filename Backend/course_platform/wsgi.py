@@ -8,9 +8,13 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 """
 
 import os
+import better_exceptions
+
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'course_platform.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "course_platform.settings")
 
 application = get_wsgi_application()
+
+better_exceptions.hook()

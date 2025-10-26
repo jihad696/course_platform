@@ -1,5 +1,4 @@
 from django.db import models
-from courses.models import Course
 
 
 class Category(models.Model):
@@ -13,17 +12,3 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class CategoryCourse(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = (
-            "category",
-            "course",
-        )  # علشان مايتكررش نفس الكورس في نفس الكاتيجوري مرتين
-
-    def __str__(self):
-        return f"{self.category.name} - {self.course.title}"
